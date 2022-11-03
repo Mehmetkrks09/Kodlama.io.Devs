@@ -2,6 +2,7 @@ package Kodlama.io.Devs.webApi.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Kodlama.io.Devs.business.abstracts.ProgrammingLanguageService;
+import Kodlama.io.Devs.entities.Dto.ProgrammingLanguageDto;
 import Kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/programminglanguages")
@@ -25,23 +28,23 @@ public class ProgrammingLanguageController {
 	}
 	
 	@PostMapping("/add")
-	public void add( ProgrammingLanguage programmingLanguage) {
+	public void add(ProgrammingLanguageDto programmingLanguageDto) {
 		
-		service.add(programmingLanguage);
+		service.add(programmingLanguageDto);
 		
 	}
 	
-	@PostMapping("/delete")
-	public void delete( int id) {
+	@DeleteMapping("/delete")
+	public void delete( int	id) {
 		
 		service.delete(id);
 		
 	}
 	
 	@PutMapping("/update")
-	public void update( ProgrammingLanguage programmingLanguage) {
+	public void update( ProgrammingLanguageDto programmingLanguageDto) {
 		
-		service.update(programmingLanguage);
+		service.update(programmingLanguageDto);
 		
 	}
 	
@@ -51,8 +54,8 @@ public class ProgrammingLanguageController {
 	}
 	
 	@GetMapping("/getbyid")
-	public ProgrammingLanguage getById(@RequestParam int id){
-		return service.getById(id);
+	public ProgrammingLanguage getById(@RequestBody int id){
+		return service.findById(id);
 	}
 
 }

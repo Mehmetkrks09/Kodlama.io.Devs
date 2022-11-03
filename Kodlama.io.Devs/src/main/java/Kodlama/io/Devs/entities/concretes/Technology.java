@@ -1,13 +1,13 @@
 package Kodlama.io.Devs.entities.concretes;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,25 +18,23 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "programming_languages")
+@Table(name = "technologies")
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class ProgrammingLanguage {
+public class Technology {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-	
-	@Column(name = "name")
-	private String name;
-	
+	@Column(name = "technology_id")
+	private int technologyId;
 
+	@Column(name = "technology_name")
+	private String technologyName;
 	
-	@OneToMany(mappedBy = "programmingLanguage")
-	private List<Technology> technologies;
-	
+	@JsonIgnore()
+	@ManyToOne
+	@JoinColumn(name="programming_language_id")
+	private ProgrammingLanguage programmingLanguage;
 
 
 }
